@@ -16,7 +16,6 @@
 using namespace std;
 
 
-
 /**
  Joshua M. Choi
  Lisha Zhou
@@ -68,32 +67,130 @@ vector<ElementNode> elementNodes;
 const string marker = "***********************************************************************************************************";
 
 // MARK: - Class Method Definitions
-
-// MARK: - Rotate Array
 void getArray();
 void rotate(int arr[], int d, int n);
-// MARK: - Push Zeros To End
 void generateRandomValues();
 void pushZerosToEnd(int arr[], int n);
+void removeLast();
+void reverseList();
+void mergeSorted();
+
+
+// MARK: - Node
+
+/**
+ Inserts a Node at the front of the list
+ - Parameter head: A Node instance
+ - Parameter entry: An Int value representing the Node's 'data' value
+ */
+Node* addFront(Node* node, int entry) {
+    Node* temp = new Node(entry);
+    temp->next = node;
+    node = temp;
+    temp = nullptr;
+    return node;
+}
+
+/**
+ Inserts a Node at the end of the list
+ - Parameter head: A Node instance
+ - Parameter entry: An Int value representing the Node's 'data' value
+ */
+Node* addEnd(Node* node, int entry) {
+    // special case: when we have an empty linked list
+    // add at the end is equivalent to adding at the front
+    if (node == nullptr) {
+        return addFront(node, entry);
+    }
+    // general case:
+    Node* curr = node;
+    while (curr->next != nullptr) {
+        curr = curr->next;
+    }
+    curr->next = new Node(entry);
+    // Node* temp = new Node(entry);
+    // curr->next = temp;
+    return node;
+}
+
+/**
+ Removes the last node
+ - Parameter node: A Node
+ */
+void removeLast(Node* node) {
+    // Safe check to determine if the node exists
+    if (node == NULL) {
+        return;
+    } else if (node->next == NULL) {
+        // Otherwise, delete the node
+        delete node;
+        node = NULL;
+        return;
+    }
+    
+    // MARK: - Node
+    // Setup the current node
+    Node* currNode = node;
+    // Destroy the node that was removed
+    while (currNode->next && currNode->next->next != NULL) {
+        currNode = currNode->next;
+    }
+    delete currNode->next;
+    currNode->next = NULL;
+}
+
+/**
+ Gets the length of the linked list
+ */
+int length(Node* node) {
+    int counter = 0;
+    Node* curr = node;
+    while (curr != nullptr) {
+        counter++;
+        curr = curr->next;
+    }
+    return counter;
+}
+
+/**
+ Displays the linked list in the following format: 4->5->9->12
+ */
+void display(Node* node) {
+    // corner case: if we don't have anything in
+    // the linked list, then we don't need to print
+    // anything
+    if (node == nullptr) {
+        return;
+    }
+    // general case
+    Node* curr = node;
+    while (curr->next != nullptr) {
+        cout << curr->data << "->";
+        curr = curr->next;
+    }
+    cout << curr->data;
+    cout << endl;
+}
+
+
+
+
 
 // MARK: - Main
-//int main(int argc, const char * argv[]) {
-int main() {
-
+int main(int argc, const char * argv[]) {
     // MARK: - ROTATE ARRAY
     getArray();
-    
+
     // MARK: - PUSH ZERO'S TO END
     generateRandomValues();
     
-//    3. Given a linked list with at least two nodes, remove the last element from the linked list.
-//    Function prototype: Node* removeLastElement(Node* head)
-//Example:
-//    • Input: 1→2→6→3→4→5
-//    • Output: 1→2→6→3→4
+    // MARK: - REMOVE LAST FROM LIST
+    removeLast();
+    
+    // MARK: - REVERSE LIST
+    
+    // MARK: - MERGE 2 SORTED LISTS
 
-    
-    
     return 0;
 }
 
@@ -312,4 +409,73 @@ void pushZerosToEnd(int arr[], int n) {
     while (count < n) {
         arr[count++] = 0;
     }
+}
+
+
+
+/**
+ Remove the last element from the node
+ */
+void removeLast() {
+    // MARK: - REMOVE LAST ELEMENT FROM LINKED LIST
+    // MARK: - Node
+    Node* head = nullptr;
+    head = addEnd(head, 1);
+    head = addEnd(head, 2);
+    head = addEnd(head, 6);
+    head = addEnd(head, 3);
+    head = addEnd(head, 4);
+    head = addEnd(head, 5);
+    
+    // Display the preset node
+    cout << "\n" << marker << "\n";
+    cout << marker << "\n";
+    cout << "3.) Removing the last element from the linked list: ";
+    display(head);
+    // Remove the last node
+    cout << "* Removing the last element now...";
+    removeLast(head);
+    // Display the results
+    cout << "\n• Result: ";
+    // MARK: - REMOVE LAST ELEMENT FROM LINKED LIST
+    display(head);
+}
+
+
+
+/**
+ Reverse the linked list
+ 
+ 
+ 4. Reverse a singly linked list.
+ Function prototype: Node* reverseList(Node* head)
+ Example:
+ • Input: 1→2→3→4→5→NULL
+ • Output: 5→4→3→2→1→NULL
+ */
+void reverseList() {
+    
+    // MARK: - REVERSE SINGLY LINKED LIST
+    // MARK: - Node
+    Node* reversableList = nullptr;
+    reversableList = addEnd(reversableList, 1);
+    reversableList = addEnd(reversableList, 2);
+    reversableList = addEnd(reversableList, 3);
+    reversableList = addEnd(reversableList, 4);
+    reversableList = addEnd(reversableList, 5);
+    reversableList = addEnd(reversableList, NULL);
+}
+
+
+/**
+ Merge 2 sorted linked lists
+ 
+ 5. Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+ Function prototype: Node* mergeTwoLists(Node* n1, Node* n2)
+ Example:
+ • Input: 1→2→4, 1→3→4
+ • Output: 1→1→2→3→4→4
+ */
+void mergeSorted() {
+    
 }
