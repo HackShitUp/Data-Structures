@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7E92A1AB220E199B003153DA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E92A1AA220E199B003153DA /* main.cpp */; };
 		7E92A1B6220E1BE5003153DA /* ElementNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E92A1B5220E1BE5003153DA /* ElementNode.cpp */; };
+		7E92A1BC220E2040003153DA /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E92A1BB220E2040003153DA /* Node.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +28,7 @@
 		7E92A1A7220E199B003153DA /* HW1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HW1; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E92A1AA220E199B003153DA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		7E92A1B5220E1BE5003153DA /* ElementNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ElementNode.cpp; sourceTree = "<group>"; };
+		7E92A1BB220E2040003153DA /* Node.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Node.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				7E92A1AA220E199B003153DA /* main.cpp */,
+				7E92A1BD220E2060003153DA /* Node */,
 				7E92A1B7220E1D12003153DA /* ElementNode */,
 			);
 			path = HW1;
@@ -71,6 +74,14 @@
 				7E92A1B5220E1BE5003153DA /* ElementNode.cpp */,
 			);
 			path = ElementNode;
+			sourceTree = "<group>";
+		};
+		7E92A1BD220E2060003153DA /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				7E92A1BB220E2040003153DA /* Node.cpp */,
+			);
+			path = Node;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E92A1BC220E2040003153DA /* Node.cpp in Sources */,
 				7E92A1B6220E1BE5003153DA /* ElementNode.cpp in Sources */,
 				7E92A1AB220E199B003153DA /* main.cpp in Sources */,
 			);

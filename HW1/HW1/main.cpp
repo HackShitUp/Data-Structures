@@ -7,6 +7,7 @@
 //
 
 #include "ElementNode/ElementNode.cpp"
+#include "Node/Node.cpp"
 #include <algorithm>
 #include <cstdio>
 #include <iostream>
@@ -58,9 +59,6 @@ using namespace std;
  If you have multiple files to submit, please compress all the files into a zip file with the title “yourFullName_HW1”
  */
 
-
-
-
 // MARK: - Class Vars
 
 /// MARK: - ElementNode (initialized vector of ElementNode objects used to delegate tasks for vector management)
@@ -77,23 +75,24 @@ void rotate(int arr[], int d, int n);
 // MARK: - Push Zeros To End
 void generateRandomValues();
 void pushZerosToEnd(int arr[], int n);
-// MARK: -
-
-
-
 
 // MARK: - Main
-int main(int argc, const char * argv[]) {
-    
-    /**
-     MARK: - ROTATE ARRAY
-     */
+//int main(int argc, const char * argv[]) {
+int main() {
+
+    // MARK: - ROTATE ARRAY
     getArray();
     
-    /**
-     MARK: - PUSH ZERO'S TO END
-     */
+    // MARK: - PUSH ZERO'S TO END
     generateRandomValues();
+    
+//    3. Given a linked list with at least two nodes, remove the last element from the linked list.
+//    Function prototype: Node* removeLastElement(Node* head)
+//Example:
+//    • Input: 1→2→6→3→4→5
+//    • Output: 1→2→6→3→4
+
+    
     
     return 0;
 }
