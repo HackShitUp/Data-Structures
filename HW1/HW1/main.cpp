@@ -389,7 +389,8 @@ void generateRandomValues() {
     
     for (int i = 0; i < sizeOfArray; ++i) {
         // Set the value of the array at the index
-        int randomInteger = rand() % 10;
+        // limited to 3 to increase probability of generating more 0s
+        int randomInteger = rand() % 3;
         array[i] = randomInteger;
         
         cout << array[i];
@@ -448,7 +449,7 @@ void removeLast() {
     
     /// Request the user's input and get n-number of integers for the vector
     cout << "\n" << marker;
-    cout << "\n3.) We're going to remove the last element from your linked list. Please enter your node values: \n";
+    cout << "\n3.) We're going to remove the last element from your linked list. Please enter your values for each node. Enter \"q\" and then hit enter when you're finished: \n";
     cout << marker;
     cout << endl;
     
@@ -474,7 +475,7 @@ void removeLast() {
             if (elementNodes.size() != 0) {
                 
                 // Display the node
-                cout << "\n• Removing the last element from the linked list: ";
+                cout << "• Removing the last element from the linked list: ";
                 display(head);
                 // Remove the last element
                 removeLast(head);
