@@ -63,6 +63,10 @@ using namespace std;
 /// MARK: - ElementNode (initialized vector of ElementNode objects used to delegate tasks for vector management)
 vector<ElementNode> elementNodes;
 
+
+/// Set the quit command
+string quit = "q";
+
 /// Declared string used for logging
 const string marker = "***********************************************************************************************************";
 
@@ -73,7 +77,7 @@ void generateRandomValues();
 void pushZerosToEnd(int arr[], int n);
 void removeLast();
 void reverseList();
-void mergeSorted();
+void mergeSortedList();
 
 
 // MARK: - Node
@@ -140,6 +144,28 @@ void removeLast(Node* node) {
 }
 
 /**
+ Merge two linked lists by recursive binary comparison
+ - Parameter list1: The first linked list
+ - Parameter list2: The second linked list
+ */
+Node* mergeLists(Node* list1, Node* list2) {
+    if (list1 == NULL) {
+        return list2;
+    }
+    if (list2 == NULL) {
+        return list1;
+    }
+    
+    if (list1->data < list2->data) {
+        list1->next = mergeLists(list1->next, list2);
+        return list1;
+    } else {
+        list2->next = mergeLists(list2->next, list1);
+        return list2;
+    }
+}
+
+/**
  Gets the length of the linked list
  */
 int length(Node* node) {
@@ -188,8 +214,10 @@ int main(int argc, const char * argv[]) {
     removeLast();
     
     // MARK: - REVERSE LIST
+    reverseList();
     
     // MARK: - MERGE 2 SORTED LISTS
+    mergeSortedList();
 
     return 0;
 }
@@ -203,9 +231,6 @@ void getArray() {
     // Clear the ElementNode vector
     elementNodes.clear();
     
-    /// Set the quit
-    string quit = "q";
-    
     /// Initialized int value representing the input value
     int inputValue = 0;
     /// Initialized int value used to delegate the position of the element in the vector
@@ -213,7 +238,7 @@ void getArray() {
     
     /// Request the user's input and get n-number of integers for the vector
     cout << marker;
-    cout << "\n1.) We're going to rotate your array. Please input your integers. Enter \"q\" or hit space and enter to stop.\n";
+    cout << "\n1.) We're going to rotate your array. Please input your integers. Enter \"q\" then hit enter to stop.\n";
     cout << marker;
     cout << endl;
     
@@ -350,8 +375,7 @@ void rotate(int arr[], int d, int n) {
 void generateRandomValues() {
     /// Initialized Int value representing the size of the user's array
     int sizeOfArray = 0;
-    cout << "\n" << marker << "\n";
-    cout << marker << "\n";
+    cout << "\n\n" << marker << "\n";
     cout << "2.) Generating random integers to push all of the 0's to the end of the array. Please input the size of your array: ";
     cin.clear();
     cin.ignore();
@@ -411,51 +435,76 @@ void pushZerosToEnd(int arr[], int n) {
     }
 }
 
-
-
 /**
  Remove the last element from the node
  */
 void removeLast() {
-    // MARK: - REMOVE LAST ELEMENT FROM LINKED LIST
+
     // MARK: - Node
     Node* head = nullptr;
-    head = addEnd(head, 1);
-    head = addEnd(head, 2);
-    head = addEnd(head, 6);
-    head = addEnd(head, 3);
-    head = addEnd(head, 4);
-    head = addEnd(head, 5);
     
-    // Display the preset node
-    cout << "\n" << marker << "\n";
-    cout << marker << "\n";
-    cout << "3.) Removing the last element from the linked list: ";
-    display(head);
-    // Remove the last node
-    cout << "* Removing the last element now...";
-    removeLast(head);
-    // Display the results
-    cout << "\n• Result: ";
-    // MARK: - REMOVE LAST ELEMENT FROM LINKED LIST
-    display(head);
+    /// Initialized int value representing the input value
+    int inputValue = 0;
+    
+    /// Request the user's input and get n-number of integers for the vector
+    cout << "\n" << marker;
+    cout << "\n3.) We're going to remove the last element from your linked list. Please enter your node values: \n";
+    cout << marker;
+    cout << endl;
+    
+    /**
+     Here, we continuously get input until the input is invalid
+     */
+    do{
+        // Get the input value
+        cin >> inputValue;
+
+        if (cin.fail() == false) {
+            //
+            // Continue
+            //
+            head = addEnd(head, inputValue);
+            
+        } else if (cin.fail() == true) {
+            //
+            // Quit
+            //
+            
+            // Ensure that the vector isn't empty
+            if (elementNodes.size() != 0) {
+                
+                // Display the node
+                cout << "\n• Removing the last element from the linked list: ";
+                display(head);
+                // Remove the last element
+                removeLast(head);
+                // Display the results
+                cout << "• Result: ";
+                // MARK: - REMOVE LAST ELEMENT FROM LINKED LIST
+                display(head);
+                
+                // Exit method
+                break;
+                
+            } else {
+                cout << "Quitting program. You have no elements in your vector. See you later! :(";
+            }
+        }
+        
+    } while(cin.fail() == false);
 }
-
-
 
 /**
  Reverse the linked list
- 
- 
- 4. Reverse a singly linked list.
- Function prototype: Node* reverseList(Node* head)
- Example:
- • Input: 1→2→3→4→5→NULL
- • Output: 5→4→3→2→1→NULL
  */
 void reverseList() {
     
-    // MARK: - REVERSE SINGLY LINKED LIST
+    // Log stuff here
+    cout << "\n" << marker << "\n";
+    cout << "4.) Reversing a singly linked list.";
+    cout << "\n" << marker << "\n";
+    cout << "• Current list: ";
+    
     // MARK: - Node
     Node* reversableList = nullptr;
     reversableList = addEnd(reversableList, 1);
@@ -464,18 +513,67 @@ void reverseList() {
     reversableList = addEnd(reversableList, 4);
     reversableList = addEnd(reversableList, 5);
     reversableList = addEnd(reversableList, NULL);
+    
+    // Display the list
+    display(reversableList);
+
+    // Next pointers
+    Node* current = reversableList;
+    Node* prev = NULL, *next = NULL;
+    
+    /**
+     Here, we reverse the list
+     */
+    // Loop through the list
+    while (current != NULL) {
+        // Store next
+        next = current->next;
+        
+        // Reverse current node's pointer
+        current->next = prev;
+        
+        // Move pointers one position ahead.
+        prev = current;
+        current = next;
+    }
+    reversableList = prev;
+    
+    // Log the reversed list
+    cout << "• Reversed list: ";
+    
+    // Display the reversed list
+    display(reversableList);
 }
 
 
 /**
  Merge 2 sorted linked lists
- 
- 5. Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
- Function prototype: Node* mergeTwoLists(Node* n1, Node* n2)
- Example:
- • Input: 1→2→4, 1→3→4
- • Output: 1→1→2→3→4→4
  */
-void mergeSorted() {
+void mergeSortedList() {
     
+    // MARK: - Node
+    Node* firstList = nullptr;
+    firstList = addEnd(firstList, 1);
+    firstList = addEnd(firstList, 2);
+    firstList = addEnd(firstList, 4);
+    
+    // MARK: - Node
+    Node* secondList = nullptr;
+    secondList = addEnd(secondList, 1);
+    secondList = addEnd(secondList, 3);
+    secondList = addEnd(secondList, 4);
+    
+    // Log stuff here
+    cout << "\n" << marker << "\n";
+    cout << "5.) Merging two sorted lists.\n• List 1: ";
+    display(firstList);
+    cout << "• List 2: ";
+    display(secondList);
+    cout << "\n" << marker << "\n";
+    
+    /**
+     Here, we merge two lists, splices them, and returns a combined sorted/merged list
+     */
+    Node* newList = mergeLists(firstList, secondList);
+    display(newList);
 }
